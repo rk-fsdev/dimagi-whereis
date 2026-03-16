@@ -44,6 +44,4 @@ Payload:
 
 ## Notes
 
-- The first request may take a bit longer because `cities15000.txt` is ingested into `.data/whereis.sqlite`.
 - Cache is stored in the same SQLite DB (`geonames_cache` table).
-
