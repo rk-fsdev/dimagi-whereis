@@ -41,4 +41,3 @@ export function db(): Database.Database {
   _db = database;
   return database;
 }
-

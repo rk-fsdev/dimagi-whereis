@@ -55,16 +55,25 @@ export function LocationAtQuery() {
     <div className="card">
       <h2 className="page-section-title">Query location at a time</h2>
       <div className="muted field-help">
-        Given an email and timestamp, show the most recent known location at or before that time.
+        Given an email and timestamp, show the most recent known location at or
+        before that time.
       </div>
       <form onSubmit={onQuery} className="grid">
         <div>
           <label>Email</label>
-          <input value={queryEmail} onChange={(e) => setQueryEmail(e.target.value)} placeholder="nick@dimagi.com" />
+          <input
+            value={queryEmail}
+            onChange={(e) => setQueryEmail(e.target.value)}
+            placeholder="nick@dimagi.com"
+          />
         </div>
         <div>
           <label>At time</label>
-          <input type="datetime-local" value={queryAtLocal} onChange={(e) => setQueryAtLocal(e.target.value)} />
+          <input
+            type="datetime-local"
+            value={queryAtLocal}
+            onChange={(e) => setQueryAtLocal(e.target.value)}
+          />
         </div>
         <div className="actions-row">
           <button type="submit">Run query</button>
@@ -73,9 +82,7 @@ export function LocationAtQuery() {
       {queryError ? <div className="error-text">{queryError}</div> : null}
       {queryResult ? (
         <div className="field-help">
-          <div className="muted">
-            Location at that time:
-          </div>
+          <div className="muted">Location at that time:</div>
           <pre>{JSON.stringify(queryResult, null, 2)}</pre>
           {queryResult.latitude != null && queryResult.longitude != null ? (
             <div className="muted">
@@ -94,4 +101,3 @@ export function LocationAtQuery() {
     </div>
   );
 }
-

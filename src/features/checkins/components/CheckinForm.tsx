@@ -17,7 +17,9 @@ export function CheckinForm() {
   const [email, setEmail] = useState("nick@dimagi.com");
   const [observedAtLocal, setObservedAtLocal] = useState(nowLocalISOForInput());
   const [location, setLocation] = useState("Dodoma");
-  const [strategy, setStrategy] = useState<"population" | "closest">("population");
+  const [strategy, setStrategy] = useState<"population" | "closest">(
+    "population",
+  );
   const [submitting, setSubmitting] = useState(false);
   const [result, setResult] = useState<any>(null);
   const [error, setError] = useState<string | null>(null);
@@ -36,7 +38,12 @@ export function CheckinForm() {
       const res = await fetch("/api/checkin", {
         method: "POST",
         headers: { "content-type": "application/json" },
-        body: JSON.stringify({ email, observed_at: observedAtISO, location, strategy }),
+        body: JSON.stringify({
+          email,
+          observed_at: observedAtISO,
+          location,
+          strategy,
+        }),
       });
       const json = await res.json();
       if (!json.ok) throw new Error(json.error || "Request failed");
@@ -53,20 +60,33 @@ export function CheckinForm() {
       <form onSubmit={onSubmit} className="grid">
         <div>
           <label>Email</label>
-          <input value={email} onChange={(e) => setEmail(e.target.value)} placeholder="nick@dimagi.com" />
+          <input
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            placeholder="nick@dimagi.com"
+          />
         </div>
         <div>
           <label>Observed at</label>
-          <input type="datetime-local" value={observedAtLocal} onChange={(e) => setObservedAtLocal(e.target.value)} />
+          <input
+            type="datetime-local"
+            value={observedAtLocal}
+            onChange={(e) => setObservedAtLocal(e.target.value)}
+          />
           <div className="muted field-help">
             Stored as ISO timestamp: <code>{observedAtISO}</code>
           </div>
         </div>
         <div className="field-full">
           <label>Location</label>
-          <input value={location} onChange={(e) => setLocation(e.target.value)} placeholder="Dodoma" />
+          <input
+            value={location}
+            onChange={(e) => setLocation(e.target.value)}
+            placeholder="Dodoma"
+          />
           <div className="muted field-help">
-            Try: <code>Lusaka</code>, <code>Dodoma</code>, <code>Andorra la Vella</code>.
+            Try: <code>Lusaka</code>, <code>Dodoma</code>,{" "}
+            <code>Andorra la Vella</code>.
           </div>
         </div>
         <div className="field-full">
@@ -109,7 +129,8 @@ export function CheckinForm() {
             Normalized output (includes resolution debug info):
           </div>
           <pre>{JSON.stringify(result, null, 2)}</pre>
-          {result?.checkin?.latitude != null && result?.checkin?.longitude != null ? (
+          {result?.checkin?.latitude != null &&
+          result?.checkin?.longitude != null ? (
             <div className="muted">
               Map link:{" "}
               <a
@@ -126,4 +147,3 @@ export function CheckinForm() {
     </div>
   );
 }
-
